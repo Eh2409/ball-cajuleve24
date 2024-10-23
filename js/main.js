@@ -72,3 +72,8 @@ function sizeReduce(ball, ballSize) {
         ball.style.height = ballSize + 'px'
         ball.innerText = ballSize
 }
+
+function onChangeBackgroundColor() {
+    const elBody = document.querySelector('body')
+    elBody.style.backgroundColor = getRandomColor()
+}

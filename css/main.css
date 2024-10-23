@@ -31,6 +31,7 @@ div {
     margin-block-end: 10px;
 
     cursor: pointer;
+    box-shadow: rgb(73, 73, 73) 1px 1px 10px ;
 }
 
 .ball1 {
@@ -52,3 +53,10 @@ div {
     font-size: 15px;
     text-align: center;
 }
+
+.ball5 {
+    background-color: rgb(188, 3, 212);
+    font-size: 15px;
+    text-align: center;
+}
+
