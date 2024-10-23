@@ -3,6 +3,10 @@
 var gBallSize = 100
 
 function onBallClick(elBall) {
+    changeBallSize(elBall)
+}
+
+function changeBallSize(elBall) {
     if (gBallSize >= 400) {
         gBallSize = 100
     } else {
@@ -14,3 +18,4 @@ function onBallClick(elBall) {
     
     elBall.innerText = gBallSize
 }
+
