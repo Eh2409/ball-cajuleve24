@@ -1,16 +1,16 @@
 "use strict"
 
 
-function onBallClick(elBall) {
-    
-    changeBallSize(elBall)
+function onBallClick(elBall, maxDiameter) {
+
+    changeBallSize(elBall, maxDiameter)
     changeBallColor(elBall)
 }
 
-function changeBallSize(elBall) {
+function changeBallSize(elBall,maxDiameter) {
     var currBallSize = +elBall.innerText
 
-    if (currBallSize >= 400) {
+    if (currBallSize >= maxDiameter) {
         currBallSize = 100
     } else {
         var randomDiameterNum = getRandomInt(20, 61)
