@@ -77,3 +77,16 @@ function onChangeBackgroundColor() {
     const elBody = document.querySelector('body')
     elBody.style.backgroundColor = getRandomColor()
 }
+
+
+function onReset() {
+    const elBall1 = document.querySelector('.ball1')
+    const elBall2 = document.querySelector('.ball2')
+
+    updateBALL(elBall1, 100, 'purple')
+    updateBALL(elBall2, 100, 'red')
+
+    const elBody = document.querySelector('body')
+    elBody.style.backgroundColor = 'black'
+
+}

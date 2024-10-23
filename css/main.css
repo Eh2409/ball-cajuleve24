@@ -35,7 +35,7 @@ div {
 }
 
 .ball1 {
-    background-color: rgb(80, 80, 243); 
+    background-color: purple; 
 }
 
 .ball2 {
@@ -57,6 +57,11 @@ div {
 .ball5 {
     background-color: rgb(188, 3, 212);
     font-size: 15px;
+    text-align: center;
+}
+
+.ball6 {
+    background-color: rgb(136, 0, 63);
     text-align: center;
 }
 
