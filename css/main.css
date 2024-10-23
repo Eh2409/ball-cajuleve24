@@ -15,11 +15,11 @@ div {
     display: flex;
     justify-content: center;
     align-items: center;
-    
+
     width: 100px;
     height: 100px;
     border-radius: 50%;
- 
+
     margin: auto;
 
     font-family: Arial, Helvetica, sans-serif;
@@ -27,6 +27,14 @@ div {
     font-weight: bold;
     color: white;
 
-    background-color: rgb(80, 80, 243);
     transition: width 1s , height 1s ;
+    margin-block-end: 10px;
+}
+
+.ball {
+    background-color: rgb(80, 80, 243); 
+}
+
+.ball2 {
+    background-color: red;
 }
