@@ -3,10 +3,11 @@
 var gBallSize = 100
 
 function onBallClick(elBall) {
-    if (gBallSize === 400) {
+    if (gBallSize >= 400) {
         gBallSize = 100
     } else {
-        gBallSize += 50
+        var randomDiameterNum = getRandomInt(20, 61)
+        gBallSize += randomDiameterNum
     }
     elBall.style.width = gBallSize + 'px'
     elBall.style.height = gBallSize + 'px'
