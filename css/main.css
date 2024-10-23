@@ -28,4 +28,5 @@ div {
     color: white;
 
     background-color: rgb(80, 80, 243);
+    transition: width 1s , height 1s ;
 }
