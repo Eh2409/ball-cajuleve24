@@ -4,6 +4,7 @@ var gBallSize = 100
 
 function onBallClick(elBall) {
     changeBallSize(elBall)
+    changeBallColor(elBall)
 }
 
 function changeBallSize(elBall) {
@@ -15,7 +16,10 @@ function changeBallSize(elBall) {
     }
     elBall.style.width = gBallSize + 'px'
     elBall.style.height = gBallSize + 'px'
-    
+
     elBall.innerText = gBallSize
 }
 
+function changeBallColor(elBall) {
+    elBall.style.backgroundColor = getRandomColor()
+}
