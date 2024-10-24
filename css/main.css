@@ -5,11 +5,30 @@
 body {
     background-color: black;
     font-family: Arial, Helvetica, sans-serif;
+    height: 90vh;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+
+    padding: 0 50px;
 }
 
 h1 {
     color: white;
     text-align: center;
+    margin-inline: auto;
+}
+
+header button:nth-child(1) {
+    margin-right: 5px;
+}
+
+header span:nth-child(4) {
+    margin-right: 20px;
 }
 
 button {
@@ -21,26 +40,55 @@ button {
 
 }
 
-.undo.active{
+.undo.active {
     background-color: rgb(95, 175, 3);
     color: white;
     cursor: pointer;
 }
 
-.redo.active{
+.redo.active {
     background-color: rgb(0, 201, 33);
     color: white;
     cursor: pointer;
 }
 
 .undo.active:hover,
-.redo.active:hover{
+.redo.active:hover {
     background-color: rgb(113, 247, 135);
 }
 
 span {
     color: white;
     font-size: 20px;
+}
+
+.timer {
+    font-family: monospace;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+}
+
+.balls {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 90vw;
+    flex-grow: 3;
+    
+}
+
+.btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: end;
+    width: 90vw;
+    flex-grow: 1;
 }
 
 div {
@@ -52,21 +100,22 @@ div {
     height: 100px;
     border-radius: 50%;
 
-    margin: auto;
+    margin-inline: 10px;
+    margin-block-start: 50px;
 
     font-size: 22px;
     font-weight: bold;
     color: white;
 
-    transition: width 1s , height 1s ;
+    transition: width 1s, height 1s;
     margin-block-end: 10px;
 
     cursor: pointer;
-    box-shadow: rgb(73, 73, 73) 1px 1px 10px ;
+    box-shadow: rgb(73, 73, 73) 1px 1px 10px;
 }
 
 .ball1 {
-    background-color: purple; 
+    background-color: purple;
 }
 
 .ball2 {
@@ -99,4 +148,3 @@ div {
 .ball6:hover {
     background-color: rgb(221, 44, 127);
 }
-

@@ -129,6 +129,8 @@ function onReset() {
     activateRedo()
 
     resetTimer()
+
+    gCyclesNum = 0
 }
 
 
@@ -162,6 +164,7 @@ function ballsBtnOn() {
     onReduceBallsSize()
 
     movesCounter()
+    onTimer()
 }
 
 

@@ -1,25 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ball</title>
     <link rel="stylesheet" href="css/main.css">
 </head>
-<body>
-    <h1>The Ball Game</h1>
-    <button class="undo" onclick=" onUndo()">undo</button>
-    <button class="redo" onclick=" onRedo()">redo</button>
-    <span>move number: <span class="move-number">0</span></span>
-    <span>timer: <span class="timer">00:00:000</span></span>
 
-    <div class="ball1 Ball-btn" onclick="onBallClick(this,200)">100</div>
-    <div class="ball2 Ball-btn" onclick="onBallClick(this,400)">100</div>
-    <div class="ball3 Ball-btn" onclick="onSwapBallsSizeAndColor()">swap </br> ball1 & ball2</div>
-    <div class="ball4 Ball-btn" onclick="onReduceBallsSize()">reduce </br> ball1 & ball2 </br> size</div>
-    <div class="ball5" onclick="onChangeBackgroundColor()">change background color</div>
-    <div class="ball6" onclick="onReset()" onmouseover="onBall6Hover()" onmouseleave="onBall6StopHover()">reset</div>
+<body>
+    <header>
+        <button class="undo" onclick=" onUndo()">undo</button>
+        <button class="redo" onclick=" onRedo()">redo</button>
+        <h1>The Ball Game</h1>
+        <span>move number: <span class="move-number">0</span></span>
+        <span>timer: <span class="timer">00:00:000</span></span>
+    </header>
+
+    <main>
+        <section class="balls">
+            <div class="ball1" onclick="onBallClick(this,200)">100</div>
+            <div class="ball2" onclick="onBallClick(this,400)">100</div>
+        </section>
+        <section class="btn">
+            <div class="ball3" onclick="onSwapBallsSizeAndColor()">swap </br> ball1 & ball2</div>
+            <div class="ball4" onclick="onReduceBallsSize()">reduce </br> ball1 & ball2 </br> size</div>
+            <div class="ball5" onclick="onChangeBackgroundColor()">change background color</div>
+            <div class="ball6" onclick="onReset()" onmouseover="onBall6Hover()" onmouseleave="onBall6StopHover()">reset
+            </div>
+        </section>
+    </main>
+
     <script src="js/util.js"></script>
     <script src="js/main.js"></script>
 </body>
+
 </html>
