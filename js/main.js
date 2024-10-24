@@ -2,17 +2,19 @@
 
 var ghoverOn
 var gCyclesNum = 0
+
 var gHistory = []
+var gRedo = []
 
 
 function onBallClick(elBall, maxDiameter) {
-
-    changeBallSize(elBall, maxDiameter)
-    changeBallColor(elBall)
- 
     if (!ghoverOn) {
         StoreSiteStatus()
     }
+
+
+    changeBallSize(elBall, maxDiameter)
+    changeBallColor(elBall)
 
 }
 
@@ -39,6 +41,10 @@ function changeBallColor(elBall) {
 
 
 function onSwapBallsSizeAndColor() {
+    if (!ghoverOn) {
+        StoreSiteStatus()
+    }
+
     const elBall1 = document.querySelector('.ball1')
     var ball1Size = +elBall1.innerText
     var ball1Color = getComputedStyle(elBall1).backgroundColor
@@ -50,9 +56,6 @@ function onSwapBallsSizeAndColor() {
     updateBALL(elBall1, ball2Size, ball2Color)
     updateBALL(elBall2, ball1Size, ball1Color)
 
-    if (!ghoverOn) {
-        StoreSiteStatus()
-    }
 
 }
 
@@ -65,6 +68,10 @@ function updateBALL(elBall, size, color) {
 }
 
 function onReduceBallsSize() {
+    if (!ghoverOn) {
+        StoreSiteStatus()
+    }
+
     const elBall1 = document.querySelector('.ball1')
     var ball1Size = +elBall1.innerText
 
@@ -73,14 +80,12 @@ function onReduceBallsSize() {
 
     sizeReduce(elBall1, ball1Size)
     sizeReduce(elBall2, ball2Size)
-
-    if (!ghoverOn) {
-        StoreSiteStatus()
-    }
-
 }
 
 function sizeReduce(ball, ballSize) {
+    if (!ghoverOn) {
+        StoreSiteStatus()
+    }
 
     var randomDiameterNum = getRandomInt(20, 61)
     ballSize -= randomDiameterNum
@@ -95,14 +100,13 @@ function sizeReduce(ball, ballSize) {
 function onChangeBackgroundColor() {
     const elBody = document.querySelector('body')
     elBody.style.backgroundColor = getRandomColor()
-
-    if (!ghoverOn) {
-        StoreSiteStatus()
-    }
+ 
 }
 
 
 function onReset() {
+    StoreSiteStatus()
+
     const elBall1 = document.querySelector('.ball1')
     const elBall2 = document.querySelector('.ball2')
 
@@ -111,9 +115,6 @@ function onReset() {
 
     const elBody = document.querySelector('body')
     elBody.style.backgroundColor = 'black'
-
-    StoreSiteStatus()
-
 }
 
 
@@ -136,6 +137,8 @@ function onBall6StopHover() {
 }
 
 function ballsBtnOn() {
+    StoreSiteStatus()
+
     const elBall1 = document.querySelector('.ball1')
     const elBall2 = document.querySelector('.ball2')
 
@@ -143,26 +146,55 @@ function ballsBtnOn() {
     onBallClick(elBall2, 400)
     onSwapBallsSizeAndColor()
     onReduceBallsSize()
-
-    StoreSiteStatus()
 }
 
 
-function StoreSiteStatus() {
+function StoreSiteStatus() {s
     const elBall1 = document.querySelector('.ball1')
     const elBall2 = document.querySelector('.ball2')
     const elBody = document.querySelector('body')
 
-    var status = {}
+    var currStatus = {}
 
-    status.ball1Size = +elBall1.innerText
-    status.ball1Color = getComputedStyle(elBall1).backgroundColor
-    status.ball2Size = +elBall2.innerText
-    status.ball2Color = getComputedStyle(elBall2).backgroundColor
-    status.bodyBackgroundColor = getComputedStyle(elBody).backgroundColor
+    currStatus.ball1Size = +elBall1.innerText
+    currStatus.ball1Color = getComputedStyle(elBall1).backgroundColor
+    currStatus.ball2Size = +elBall2.innerText
+    currStatus.ball2Color = getComputedStyle(elBall2).backgroundColor
+    currStatus.bodyBackgroundColor = getComputedStyle(elBody).backgroundColor
 
-    gHistory.push(status)
+    gHistory.push(currStatus)
     console.log(gHistory);
 }
 
 
+function onUndo() {
+    if (!gHistory.length) return
+
+
+    var curr = gHistory[gHistory.length - 1]
+    updateSiteDOM(curr)
+    gRedo.push(curr)
+    gHistory.pop()
+
+}
+
+function onRedo() {
+    if (!gRedo.length) return
+
+    var curr = gRedo[gRedo.length - 1]
+    updateSiteDOM(curr)
+    gHistory.push(curr)
+    gRedo.pop()
+}
+
+function updateSiteDOM(curr) {
+    const elBall1 = document.querySelector('.ball1')
+    const elBall2 = document.querySelector('.ball2')
+    const elBody = document.querySelector('body')
+
+    console.log(curr);
+
+    updateBALL(elBall1, curr.ball1Size, curr.ball1Color)
+    updateBALL(elBall2, curr.ball2Size, curr.ball2Color)
+    elBody.style.backgroundColor = curr.bodyBackgroundColor
+}
