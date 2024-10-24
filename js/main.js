@@ -2,12 +2,18 @@
 
 var ghoverOn
 var gCyclesNum = 0
+var gHistory = []
 
 
 function onBallClick(elBall, maxDiameter) {
 
     changeBallSize(elBall, maxDiameter)
     changeBallColor(elBall)
+ 
+    if (!ghoverOn) {
+        StoreSiteStatus()
+    }
+
 }
 
 function changeBallSize(elBall, maxDiameter) {
@@ -24,6 +30,7 @@ function changeBallSize(elBall, maxDiameter) {
     elBall.style.height = currBallSize + 'px'
 
     elBall.innerText = currBallSize
+
 }
 
 function changeBallColor(elBall) {
@@ -42,6 +49,10 @@ function onSwapBallsSizeAndColor() {
 
     updateBALL(elBall1, ball2Size, ball2Color)
     updateBALL(elBall2, ball1Size, ball1Color)
+
+    if (!ghoverOn) {
+        StoreSiteStatus()
+    }
 
 }
 
@@ -62,6 +73,11 @@ function onReduceBallsSize() {
 
     sizeReduce(elBall1, ball1Size)
     sizeReduce(elBall2, ball2Size)
+
+    if (!ghoverOn) {
+        StoreSiteStatus()
+    }
+
 }
 
 function sizeReduce(ball, ballSize) {
@@ -79,6 +95,10 @@ function sizeReduce(ball, ballSize) {
 function onChangeBackgroundColor() {
     const elBody = document.querySelector('body')
     elBody.style.backgroundColor = getRandomColor()
+
+    if (!ghoverOn) {
+        StoreSiteStatus()
+    }
 }
 
 
@@ -91,6 +111,8 @@ function onReset() {
 
     const elBody = document.querySelector('body')
     elBody.style.backgroundColor = 'black'
+
+    StoreSiteStatus()
 
 }
 
@@ -109,12 +131,38 @@ function onBall6Hover() {
 
 function onBall6StopHover() {
     clearInterval(ghoverOn)
+    ghoverOn = null
     gCyclesNum = 0
 }
 
 function ballsBtnOn() {
-    onBallClick(document.querySelector('.ball1'), 200)
-    onBallClick(document.querySelector('.ball2'), 400)
+    const elBall1 = document.querySelector('.ball1')
+    const elBall2 = document.querySelector('.ball2')
+
+    onBallClick(elBall1, 200)
+    onBallClick(elBall2, 400)
     onSwapBallsSizeAndColor()
     onReduceBallsSize()
+
+    StoreSiteStatus()
 }
+
+
+function StoreSiteStatus() {
+    const elBall1 = document.querySelector('.ball1')
+    const elBall2 = document.querySelector('.ball2')
+    const elBody = document.querySelector('body')
+
+    var status = {}
+
+    status.ball1Size = +elBall1.innerText
+    status.ball1Color = getComputedStyle(elBall1).backgroundColor
+    status.ball2Size = +elBall2.innerText
+    status.ball2Color = getComputedStyle(elBall2).backgroundColor
+    status.bodyBackgroundColor = getComputedStyle(elBody).backgroundColor
+
+    gHistory.push(status)
+    console.log(gHistory);
+}
+
+
