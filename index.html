@@ -8,12 +8,12 @@
 </head>
 <body>
     <h1>The Ball Game</h1>
-    <div class="ball1" onclick="onBallClick(this,200)">100</div>
-    <div class="ball2" onclick="onBallClick(this,400)">100</div>
-    <div class="ball3" onclick="onSwapBallsSizeAndColor()">swap </br> ball1 & ball2</div>
-    <div class="ball4" onclick="onReduceBallsSize()">reduce </br> ball1 & ball2 </br> size</div>
+    <div class="ball1 Ball-btn" onclick="onBallClick(this,200)">100</div>
+    <div class="ball2 Ball-btn" onclick="onBallClick(this,400)">100</div>
+    <div class="ball3 Ball-btn" onclick="onSwapBallsSizeAndColor()">swap </br> ball1 & ball2</div>
+    <div class="ball4 Ball-btn" onclick="onReduceBallsSize()">reduce </br> ball1 & ball2 </br> size</div>
     <div class="ball5" onclick="onChangeBackgroundColor()">change background color</div>
-    <div class="ball6" onclick="onReset()">reset</div>
+    <div class="ball6" onclick="onReset()" onmouseover="onBall6Hover()" onmouseleave="onBall6StopHover()">reset</div>
     <script src="js/util.js"></script>
     <script src="js/main.js"></script>
 </body>

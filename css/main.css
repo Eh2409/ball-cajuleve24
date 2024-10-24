@@ -65,3 +65,7 @@ div {
     text-align: center;
 }
 
+.ball6:hover {
+    background-color: rgb(221, 44, 127);
+}
+

@@ -1,5 +1,8 @@
 "use strict"
 
+var ghoverOn
+var gCyclesNum = 0
+
 
 function onBallClick(elBall, maxDiameter) {
 
@@ -64,13 +67,13 @@ function onReduceBallsSize() {
 function sizeReduce(ball, ballSize) {
 
     var randomDiameterNum = getRandomInt(20, 61)
-        ballSize-= randomDiameterNum
+    ballSize -= randomDiameterNum
 
-        if (ballSize < 100) ballSize = 100
-    
-        ball.style.width = ballSize + 'px'
-        ball.style.height = ballSize + 'px'
-        ball.innerText = ballSize
+    if (ballSize < 100) ballSize = 100
+
+    ball.style.width = ballSize + 'px'
+    ball.style.height = ballSize + 'px'
+    ball.innerText = ballSize
 }
 
 function onChangeBackgroundColor() {
@@ -89,4 +92,29 @@ function onReset() {
     const elBody = document.querySelector('body')
     elBody.style.backgroundColor = 'black'
 
+}
+
+
+function onBall6Hover() {
+    var hoverStartTime = Date.now()
+    ghoverOn = setInterval(() => {
+        var totalTimePass = Date.now() - hoverStartTime
+        if (gCyclesNum < 10 && totalTimePass >= 2000) {
+            console.log('start');
+            ballsBtnOn()
+            gCyclesNum++
+        }
+    }, 1000)
+}
+
+function onBall6StopHover() {
+    clearInterval(ghoverOn)
+    gCyclesNum = 0
+}
+
+function ballsBtnOn() {
+    onBallClick(document.querySelector('.ball1'), 200)
+    onBallClick(document.querySelector('.ball2'), 400)
+    onSwapBallsSizeAndColor()
+    onReduceBallsSize()
 }
