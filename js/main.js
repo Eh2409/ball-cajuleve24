@@ -5,13 +5,16 @@ var gCyclesNum = 0
 
 var gHistory = []
 var gRedo = []
+
 var gMovesCounter = 0
+
 
 
 function onBallClick(elBall, maxDiameter) {
     if (!ghoverOn) {
         StoreSiteStatus()
         movesCounter()
+        onTimer()
     }
 
     changeBallSize(elBall, maxDiameter)
@@ -44,6 +47,7 @@ function onSwapBallsSizeAndColor() {
     if (!ghoverOn) {
         StoreSiteStatus()
         movesCounter()
+        onTimer()
     }
 
     const elBall1 = document.querySelector('.ball1')
@@ -70,6 +74,7 @@ function onReduceBallsSize() {
     if (!ghoverOn) {
         StoreSiteStatus()
         movesCounter()
+        onTimer()
     }
 
     const elBall1 = document.querySelector('.ball1')
@@ -97,6 +102,7 @@ function sizeReduce(ball, ballSize) {
 function onChangeBackgroundColor() {
     StoreSiteStatus()
     movesCounter()
+    onTimer()
 
     const elBody = document.querySelector('body')
     elBody.style.backgroundColor = getRandomColor()
@@ -122,6 +128,7 @@ function onReset() {
     gRedo = []
     activateRedo()
 
+    resetTimer()
 }
 
 
@@ -250,4 +257,5 @@ function movesCounter(diff = 1) {
     const elMove = document.querySelector(`.move-number`)
     elMove.innerText = gMovesCounter
 }
+
 
