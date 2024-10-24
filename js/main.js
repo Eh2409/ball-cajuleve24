@@ -98,9 +98,10 @@ function sizeReduce(ball, ballSize) {
 }
 
 function onChangeBackgroundColor() {
+    StoreSiteStatus()
+    
     const elBody = document.querySelector('body')
     elBody.style.backgroundColor = getRandomColor()
- 
 }
 
 
@@ -149,7 +150,7 @@ function ballsBtnOn() {
 }
 
 
-function StoreSiteStatus() {s
+function StoreSiteStatus(storeRedo) {
     const elBall1 = document.querySelector('.ball1')
     const elBall2 = document.querySelector('.ball2')
     const elBody = document.querySelector('body')
@@ -162,29 +163,44 @@ function StoreSiteStatus() {s
     currStatus.ball2Color = getComputedStyle(elBall2).backgroundColor
     currStatus.bodyBackgroundColor = getComputedStyle(elBody).backgroundColor
 
-    gHistory.push(currStatus)
+    if (storeRedo === 'store curr status before undo' ) gRedo.push(currStatus)
+    else gHistory.push(currStatus)
     console.log(gHistory);
+
+
+    const elUndo = document.querySelector('.undo')
+    if (!elUndo.classList.contains('active')) {
+        activateUndo(true)
+    }
+
 }
 
 
 function onUndo() {
     if (!gHistory.length) return
 
-
     var curr = gHistory[gHistory.length - 1]
+    StoreSiteStatus('store curr status before undo')
     updateSiteDOM(curr)
-    gRedo.push(curr)
     gHistory.pop()
 
+    if (!gHistory.length) activateUndo()
+    
+    const elRedo = document.querySelector('.redo')
+    if (!elRedo.classList.contains('active')) {
+        activateRedo(true)
+    }
 }
 
 function onRedo() {
     if (!gRedo.length) return
 
     var curr = gRedo[gRedo.length - 1]
+    StoreSiteStatus()
     updateSiteDOM(curr)
-    gHistory.push(curr)
     gRedo.pop()
+
+    if (!gRedo.length) activateRedo()
 }
 
 function updateSiteDOM(curr) {
@@ -197,4 +213,22 @@ function updateSiteDOM(curr) {
     updateBALL(elBall1, curr.ball1Size, curr.ball1Color)
     updateBALL(elBall2, curr.ball2Size, curr.ball2Color)
     elBody.style.backgroundColor = curr.bodyBackgroundColor
+}
+
+function activateUndo(isOn) {
+    const elUndo = document.querySelector('.undo')
+    if (isOn) {
+        elUndo.classList.add('active')
+    } else {
+        elUndo.classList.remove('active')
+    }
+}
+
+function activateRedo(isOn) {
+    const elRedo = document.querySelector('.redo')
+    if (isOn) {
+        elRedo.classList.add('active')
+    } else {
+        elRedo.classList.remove('active')
+    }
 }
