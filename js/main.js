@@ -5,17 +5,17 @@ var gCyclesNum = 0
 
 var gHistory = []
 var gRedo = []
+var gMovesCounter = 0
 
 
 function onBallClick(elBall, maxDiameter) {
     if (!ghoverOn) {
         StoreSiteStatus()
+        movesCounter()
     }
-
 
     changeBallSize(elBall, maxDiameter)
     changeBallColor(elBall)
-
 }
 
 function changeBallSize(elBall, maxDiameter) {
@@ -43,6 +43,7 @@ function changeBallColor(elBall) {
 function onSwapBallsSizeAndColor() {
     if (!ghoverOn) {
         StoreSiteStatus()
+        movesCounter()
     }
 
     const elBall1 = document.querySelector('.ball1')
@@ -55,8 +56,6 @@ function onSwapBallsSizeAndColor() {
 
     updateBALL(elBall1, ball2Size, ball2Color)
     updateBALL(elBall2, ball1Size, ball1Color)
-
-
 }
 
 function updateBALL(elBall, size, color) {
@@ -70,6 +69,7 @@ function updateBALL(elBall, size, color) {
 function onReduceBallsSize() {
     if (!ghoverOn) {
         StoreSiteStatus()
+        movesCounter()
     }
 
     const elBall1 = document.querySelector('.ball1')
@@ -83,9 +83,6 @@ function onReduceBallsSize() {
 }
 
 function sizeReduce(ball, ballSize) {
-    if (!ghoverOn) {
-        StoreSiteStatus()
-    }
 
     var randomDiameterNum = getRandomInt(20, 61)
     ballSize -= randomDiameterNum
@@ -99,14 +96,14 @@ function sizeReduce(ball, ballSize) {
 
 function onChangeBackgroundColor() {
     StoreSiteStatus()
-    
+    movesCounter()
+
     const elBody = document.querySelector('body')
     elBody.style.backgroundColor = getRandomColor()
 }
 
 
 function onReset() {
-    StoreSiteStatus()
 
     const elBall1 = document.querySelector('.ball1')
     const elBall2 = document.querySelector('.ball2')
@@ -116,6 +113,15 @@ function onReset() {
 
     const elBody = document.querySelector('body')
     elBody.style.backgroundColor = 'black'
+
+    gMovesCounter = 0
+    movesCounter(0)
+
+    gHistory = []
+    activateUndo()
+    gRedo = []
+    activateRedo()
+
 }
 
 
@@ -147,6 +153,8 @@ function ballsBtnOn() {
     onBallClick(elBall2, 400)
     onSwapBallsSizeAndColor()
     onReduceBallsSize()
+
+    movesCounter()
 }
 
 
@@ -163,7 +171,7 @@ function StoreSiteStatus(storeRedo) {
     currStatus.ball2Color = getComputedStyle(elBall2).backgroundColor
     currStatus.bodyBackgroundColor = getComputedStyle(elBody).backgroundColor
 
-    if (storeRedo === 'store curr status before undo' ) gRedo.push(currStatus)
+    if (storeRedo === 'store curr status before undo') gRedo.push(currStatus)
     else gHistory.push(currStatus)
     console.log(gHistory);
 
@@ -175,7 +183,6 @@ function StoreSiteStatus(storeRedo) {
 
 }
 
-
 function onUndo() {
     if (!gHistory.length) return
 
@@ -185,11 +192,13 @@ function onUndo() {
     gHistory.pop()
 
     if (!gHistory.length) activateUndo()
-    
+
     const elRedo = document.querySelector('.redo')
     if (!elRedo.classList.contains('active')) {
         activateRedo(true)
     }
+
+    movesCounter()
 }
 
 function onRedo() {
@@ -201,6 +210,8 @@ function onRedo() {
     gRedo.pop()
 
     if (!gRedo.length) activateRedo()
+
+    movesCounter()
 }
 
 function updateSiteDOM(curr) {
@@ -213,6 +224,7 @@ function updateSiteDOM(curr) {
     updateBALL(elBall1, curr.ball1Size, curr.ball1Color)
     updateBALL(elBall2, curr.ball2Size, curr.ball2Color)
     elBody.style.backgroundColor = curr.bodyBackgroundColor
+
 }
 
 function activateUndo(isOn) {
@@ -232,3 +244,10 @@ function activateRedo(isOn) {
         elRedo.classList.remove('active')
     }
 }
+
+function movesCounter(diff = 1) {
+    gMovesCounter += diff
+    const elMove = document.querySelector(`.move-number`)
+    elMove.innerText = gMovesCounter
+}
+
